@@ -9,8 +9,51 @@
       body {
         margin: 0;
         overflow: hidden;
-        background-color: #000000;
+        background: linear-gradient(
+          to bottom,
+          #0a1628 0%,
+          #1a2940 25%,
+          #0f1f38 50%,
+          #1a3050 75%,
+          #0d1b2a 100%
+        );
         font-family: "Times New Roman", serif;
+        position: relative;
+      }
+
+      /* Starry background effect */
+      body::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: radial-gradient(
+            2px 2px at 20% 30%,
+            white,
+            transparent
+          ),
+          radial-gradient(2px 2px at 60% 70%, white, transparent),
+          radial-gradient(1px 1px at 50% 50%, white, transparent),
+          radial-gradient(1px 1px at 80% 10%, white, transparent),
+          radial-gradient(2px 2px at 90% 60%, white, transparent),
+          radial-gradient(1px 1px at 33% 80%, white, transparent),
+          radial-gradient(1px 1px at 15% 60%, white, transparent);
+        background-size: 200% 200%;
+        animation: twinkle 4s ease-in-out infinite;
+        opacity: 0.5;
+        z-index: 0;
+      }
+
+      @keyframes twinkle {
+        0%,
+        100% {
+          opacity: 0.5;
+        }
+        50% {
+          opacity: 0.8;
+        }
       }
       #canvas-container {
         width: 100vw;
@@ -112,10 +155,131 @@
         opacity: 0; /* Hidden by default but functional */
         pointer-events: none;
       }
+
+      /* Christmas Message */
+      .christmas-message {
+        position: absolute;
+        bottom: 50px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: #fff;
+        font-size: 32px;
+        font-weight: 700;
+        text-align: center;
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.8),
+          0 0 40px rgba(255, 215, 0, 0.6), 0 0 60px rgba(255, 0, 0, 0.4);
+        font-family: "Cinzel", "Times New Roman", serif;
+        letter-spacing: 3px;
+        animation: glow 2s ease-in-out infinite alternate;
+        z-index: 15;
+        pointer-events: none;
+      }
+
+      @keyframes glow {
+        from {
+          text-shadow: 0 0 20px rgba(255, 255, 255, 0.8),
+            0 0 40px rgba(255, 215, 0, 0.6), 0 0 60px rgba(255, 0, 0, 0.4);
+        }
+        to {
+          text-shadow: 0 0 30px rgba(255, 255, 255, 1),
+            0 0 60px rgba(255, 215, 0, 0.8), 0 0 90px rgba(255, 0, 0, 0.6);
+        }
+      }
+
+      /* Snowflakes */
+      .snowflake {
+        position: absolute;
+        top: -10px;
+        z-index: 9;
+        color: #fff;
+        font-size: 1em;
+        pointer-events: none;
+        animation: fall linear infinite;
+        text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+      }
+
+      @keyframes fall {
+        to {
+          transform: translateY(100vh) rotate(360deg);
+        }
+      }
+
+      /* Fireworks */
+      .firework {
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 8;
+      }
+
+      @keyframes firework-launch {
+        0% {
+          transform: translateY(0);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-200px);
+          opacity: 0;
+        }
+      }
+
+      @keyframes firework-explode {
+        0% {
+          transform: translate(0, 0) scale(1);
+          opacity: 1;
+        }
+        100% {
+          transform: translate(var(--x), var(--y)) scale(0);
+          opacity: 0;
+        }
+      }
+
+      /* Greeting Message */
+      .greeting-text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-family: "Great Vibes", "Dancing Script", cursive;
+        font-size: 72px;
+        color: #fff;
+        text-align: center;
+        text-shadow: 0 0 30px rgba(255, 215, 0, 0.8),
+          0 0 60px rgba(255, 100, 100, 0.6), 0 5px 20px rgba(0, 0, 0, 0.5);
+        z-index: 20;
+        pointer-events: none;
+        animation: greeting-pulse 3s ease-in-out infinite;
+        line-height: 1.4;
+      }
+
+      .greeting-text .small {
+        font-size: 42px;
+        display: block;
+        margin-top: 10px;
+        font-family: "Playfair Display", serif;
+        letter-spacing: 4px;
+      }
+
+      @keyframes greeting-pulse {
+        0%,
+        100% {
+          transform: translate(-50%, -50%) scale(1);
+          text-shadow: 0 0 30px rgba(255, 215, 0, 0.8),
+            0 0 60px rgba(255, 100, 100, 0.6), 0 5px 20px rgba(0, 0, 0, 0.5);
+        }
+        50% {
+          transform: translate(-50%, -50%) scale(1.05);
+          text-shadow: 0 0 40px rgba(255, 215, 0, 1),
+            0 0 80px rgba(255, 100, 100, 0.8), 0 5px 30px rgba(0, 0, 0, 0.6);
+        }
+      }
     </style>
 
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap");
+      @import url("https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@700&family=Dancing+Script:wght@700&display=swap");
     </style>
 
     <script type="importmap">
@@ -140,6 +304,20 @@
       <h1></h1>
     </div>
 
+    <!-- Greeting Text -->
+    <div class="greeting-text">
+      <br />
+      <span
+        class="small"
+        style="
+          font-family: 'Dancing Script', 'Great Vibes', cursive;
+          font-weight: 700;
+          font-size: 48px;
+        "
+        >⛄ Marry Christmas ⛄<br />
+      </span>
+    </div>
+
     <!-- Webcam hidden structure -->
     <div id="webcam-wrapper">
       <video id="webcam" autoplay playsinline style="display: none"></video>
@@ -158,14 +336,18 @@
       // --- CONFIGURATION ---
       const CONFIG = {
         colors: {
-          bg: 0x000000,
+          bg: 0x0a1628,
           champagneGold: 0xffd966,
           deepGreen: 0x03180a,
           accentRed: 0x990000,
+          silver: 0xc0c0c0,
+          blue: 0x4169e1,
+          purple: 0x9370db,
+          pink: 0xff69b4,
         },
         particles: {
-          count: 1500,
-          dustCount: 2500,
+          count: 2500,
+          dustCount: 3500,
           treeHeight: 24,
           treeRadius: 8,
         },
@@ -204,11 +386,314 @@
         // Load images from public folder
         loadImagesFromPublic();
 
+        // Create snowfall effect
+        createSnowfall();
+
+        // Create fireworks
+        createFireworks();
+
         const loader = document.getElementById("loader");
         loader.style.opacity = 0;
         setTimeout(() => loader.remove(), 800);
 
         animate();
+      }
+
+      // Create fireworks effect
+      function createFireworks() {
+        function launchFirework() {
+          const x = Math.random() * window.innerWidth;
+          const y = window.innerHeight;
+          const targetY = Math.random() * (window.innerHeight * 0.5);
+
+          const colors = [
+            "#ff0000",
+            "#00ff00",
+            "#0000ff",
+            "#ffff00",
+            "#ff00ff",
+            "#00ffff",
+            "#ffd700",
+            "#ff6600",
+          ];
+          const color = colors[Math.floor(Math.random() * colors.length)];
+
+          // Create launch trail
+          const trail = document.createElement("div");
+          trail.className = "firework";
+          trail.style.left = x + "px";
+          trail.style.top = y + "px";
+          trail.style.backgroundColor = color;
+          trail.style.boxShadow = `0 0 10px ${color}`;
+          document.body.appendChild(trail);
+
+          // Animate launch
+          trail.style.animation = "firework-launch 1s ease-out forwards";
+          trail.style.transform = `translateY(-${y - targetY}px)`;
+
+          // Explode after launch
+          setTimeout(() => {
+            trail.remove();
+
+            // Random firework type
+            const type = Math.random();
+            if (type < 0.3) {
+              explodeCircle(x, targetY, color);
+            } else if (type < 0.5) {
+              explodeHeart(x, targetY, color);
+            } else if (type < 0.7) {
+              explodeRing(x, targetY, color);
+            } else if (type < 0.85) {
+              explodeWillow(x, targetY, color);
+            } else {
+              explodeStar(x, targetY, color);
+            }
+          }, 1000);
+        }
+
+        // Circle explosion
+        function explodeCircle(x, y, color) {
+          const particleCount = 60;
+          for (let i = 0; i < particleCount; i++) {
+            createParticle(
+              x,
+              y,
+              color,
+              i,
+              particleCount,
+              100 + Math.random() * 100
+            );
+          }
+        }
+
+        // Heart shape
+        function explodeHeart(x, y, color) {
+          const particleCount = 80;
+          for (let i = 0; i < particleCount; i++) {
+            const t = (i / particleCount) * Math.PI * 2;
+            const heartX = 16 * Math.pow(Math.sin(t), 3);
+            const heartY = -(
+              13 * Math.cos(t) -
+              5 * Math.cos(2 * t) -
+              2 * Math.cos(3 * t) -
+              Math.cos(4 * t)
+            );
+
+            const particle = document.createElement("div");
+            particle.className = "firework";
+            particle.style.left = x + "px";
+            particle.style.top = y + "px";
+            particle.style.backgroundColor = color;
+            particle.style.boxShadow = `0 0 20px ${color}, 0 0 40px ${color}`;
+
+            particle.style.setProperty("--x", heartX * 8 + "px");
+            particle.style.setProperty("--y", heartY * 8 + "px");
+            particle.style.animation =
+              "firework-explode 1.5s ease-out forwards";
+
+            document.body.appendChild(particle);
+            setTimeout(() => particle.remove(), 1500);
+          }
+        }
+
+        // Ring explosion
+        function explodeRing(x, y, color) {
+          const rings = 3;
+          for (let r = 0; r < rings; r++) {
+            const particleCount = 40;
+            const delay = r * 100;
+            const radius = 80 + r * 40;
+
+            setTimeout(() => {
+              for (let i = 0; i < particleCount; i++) {
+                const angle = (Math.PI * 2 * i) / particleCount;
+                const xVel = Math.cos(angle) * radius;
+                const yVel = Math.sin(angle) * radius;
+
+                const particle = document.createElement("div");
+                particle.className = "firework";
+                particle.style.left = x + "px";
+                particle.style.top = y + "px";
+                particle.style.backgroundColor = color;
+                particle.style.boxShadow = `0 0 20px ${color}, 0 0 40px ${color}`;
+
+                particle.style.setProperty("--x", xVel + "px");
+                particle.style.setProperty("--y", yVel + "px");
+                particle.style.animation =
+                  "firework-explode 1.5s ease-out forwards";
+
+                document.body.appendChild(particle);
+                setTimeout(() => particle.remove(), 1500);
+              }
+            }, delay);
+          }
+        }
+
+        // Willow/cascade effect
+        function explodeWillow(x, y, color) {
+          const particleCount = 100;
+          for (let i = 0; i < particleCount; i++) {
+            const angle = (Math.PI * 2 * i) / particleCount;
+            const velocity = 120 + Math.random() * 80;
+            const xVel = Math.cos(angle) * velocity;
+            const yVel = Math.sin(angle) * velocity * 0.5;
+
+            const particle = document.createElement("div");
+            particle.className = "firework";
+            particle.style.left = x + "px";
+            particle.style.top = y + "px";
+
+            // Gradient colors for willow
+            const gradientColors = ["#ffd700", "#ff8c00", "#ff4500"];
+            particle.style.backgroundColor =
+              gradientColors[Math.floor(Math.random() * gradientColors.length)];
+            particle.style.boxShadow = `0 0 20px ${color}, 0 0 40px ${color}`;
+
+            particle.style.setProperty("--x", xVel + "px");
+            particle.style.setProperty("--y", yVel + 200 + "px");
+            particle.style.animation = "firework-explode 2s ease-out forwards";
+
+            document.body.appendChild(particle);
+            setTimeout(() => particle.remove(), 2000);
+          }
+        }
+
+        // Star shape
+        function explodeStar(x, y, color) {
+          const points = 5;
+          const particlesPerLine = 15;
+
+          for (let i = 0; i < points; i++) {
+            const angle = (Math.PI * 2 * i) / points - Math.PI / 2;
+
+            for (let j = 0; j < particlesPerLine; j++) {
+              const distance = (j / particlesPerLine) * 150;
+              const xVel = Math.cos(angle) * distance;
+              const yVel = Math.sin(angle) * distance;
+
+              setTimeout(() => {
+                const particle = document.createElement("div");
+                particle.className = "firework";
+                particle.style.left = x + "px";
+                particle.style.top = y + "px";
+                particle.style.backgroundColor = color;
+                particle.style.boxShadow = `0 0 25px ${color}, 0 0 50px ${color}`;
+
+                particle.style.setProperty("--x", xVel + "px");
+                particle.style.setProperty("--y", yVel + "px");
+                particle.style.animation =
+                  "firework-explode 1.2s ease-out forwards";
+
+                document.body.appendChild(particle);
+                setTimeout(() => particle.remove(), 1200);
+              }, j * 20);
+            }
+          }
+        }
+
+        function createParticle(x, y, color, index, total, velocity) {
+          const particle = document.createElement("div");
+          particle.className = "firework";
+          particle.style.left = x + "px";
+          particle.style.top = y + "px";
+          particle.style.backgroundColor = color;
+          particle.style.boxShadow = `0 0 20px ${color}, 0 0 40px ${color}`;
+
+          const angle = (Math.PI * 2 * index) / total;
+          const xVel = Math.cos(angle) * velocity;
+          const yVel = Math.sin(angle) * velocity;
+
+          particle.style.setProperty("--x", xVel + "px");
+          particle.style.setProperty("--y", yVel + "px");
+          particle.style.animation = "firework-explode 1.5s ease-out forwards";
+
+          document.body.appendChild(particle);
+          setTimeout(() => particle.remove(), 1500);
+        }
+
+        // Launch fireworks at random intervals
+        function scheduledLaunch() {
+          launchFirework();
+          setTimeout(scheduledLaunch, 800 + Math.random() * 1500);
+        }
+
+        setTimeout(scheduledLaunch, 2000);
+      }
+
+      // Create snowfall effect
+      function createSnowfall() {
+        // Diverse collection of snowflakes and winter/Christmas symbols
+        const snowflakes = [
+          "❄",
+          "❅",
+          "❆",
+          "❉",
+          "✻",
+          "✼",
+          "❋",
+          "✺",
+          "✹",
+          "✸",
+          "✷",
+          "✶",
+          "✵",
+          "✴",
+          "✳",
+          "✲",
+          "✱",
+          "✰",
+          "⁕",
+          "⁂",
+          "✽",
+          "✾",
+          "✿",
+          "❀",
+          "❁",
+          "⋆",
+          "✢",
+          "✣",
+          "✤",
+          "✥",
+          "🌨",
+          "🌟",
+          "⭐",
+          "✨",
+          "💫",
+          "⛄",
+          "🎄",
+          "🔔",
+          "🎅",
+          "🎁",
+          "🕯",
+          "🌠",
+        ];
+        const numberOfSnowflakes = 150;
+
+        for (let i = 0; i < numberOfSnowflakes; i++) {
+          const snowflake = document.createElement("div");
+          snowflake.className = "snowflake";
+          snowflake.innerHTML =
+            snowflakes[Math.floor(Math.random() * snowflakes.length)];
+
+          // Random horizontal position
+          snowflake.style.left = Math.random() * 100 + "vw";
+
+          // Random size
+          const size = Math.random() * 1.5 + 0.5;
+          snowflake.style.fontSize = size + "em";
+
+          // Random animation duration (fall speed)
+          const duration = Math.random() * 10 + 10;
+          snowflake.style.animationDuration = duration + "s";
+
+          // Random delay
+          snowflake.style.animationDelay = Math.random() * 10 + "s";
+
+          // Random opacity
+          snowflake.style.opacity = Math.random() * 0.6 + 0.4;
+
+          document.body.appendChild(snowflake);
+        }
       }
 
       function initThree() {
@@ -338,9 +823,9 @@
           const h = CONFIG.particles.treeHeight;
           const halfH = h / 2;
           let t = Math.random();
-          t = Math.pow(t, 0.8);
+          t = Math.pow(t, 0.45); // Reduced to 0.45 for much denser bottom distribution
           const y = t * h - halfH;
-          let rMax = CONFIG.particles.treeRadius * (1.0 - t);
+          let rMax = CONFIG.particles.treeRadius * (1.0 - t); // Back to original shape
           if (rMax < 0.5) rMax = 0.5;
           const angle = t * 50 * Math.PI + Math.random() * Math.PI;
           const r = rMax * (0.8 + Math.random() * 0.4);
@@ -427,6 +912,16 @@
       function createParticles() {
         const sphereGeo = new THREE.SphereGeometry(0.5, 32, 32);
         const boxGeo = new THREE.BoxGeometry(0.55, 0.55, 0.55);
+
+        // Foliage geometries - diverse shapes for green needles
+        const coneGeo = new THREE.ConeGeometry(0.3, 0.6, 6);
+        const tetraGeo = new THREE.TetrahedronGeometry(0.4, 0);
+        const pyramidGeo = new THREE.ConeGeometry(0.4, 0.5, 4);
+        const cylinderGeo = new THREE.CylinderGeometry(0.25, 0.25, 0.6, 6);
+        const octaGeo = new THREE.OctahedronGeometry(0.35, 0);
+        const torusGeo = new THREE.TorusGeometry(0.3, 0.12, 8, 6);
+
+        // Candy cane geometry
         const curve = new THREE.CatmullRomCurve3([
           new THREE.Vector3(0, -0.5, 0),
           new THREE.Vector3(0, 0.3, 0),
@@ -435,55 +930,200 @@
         ]);
         const candyGeo = new THREE.TubeGeometry(curve, 16, 0.08, 8, false);
 
-        const goldMat = new THREE.MeshStandardMaterial({
-          color: CONFIG.colors.champagneGold,
-          metalness: 1.0,
-          roughness: 0.1,
-          envMapIntensity: 2.0,
-          emissive: 0x443300,
-          emissiveIntensity: 0.3,
-        });
+        // Gift box geometry
+        const giftGeo = new THREE.BoxGeometry(0.6, 0.6, 0.6);
 
+        // Star ornament geometry
+        const starOrnamentGeo = new THREE.OctahedronGeometry(0.4, 0);
+
+        // Bell geometry (using cone + sphere)
+        const bellBodyGeo = new THREE.ConeGeometry(0.3, 0.4, 8);
+        const bellTopGeo = new THREE.SphereGeometry(0.1, 8, 8);
+
+        // Light bulb geometry
+        const lightGeo = new THREE.SphereGeometry(0.3, 16, 16);
+
+        // Green foliage material
         const greenMat = new THREE.MeshStandardMaterial({
-          color: CONFIG.colors.deepGreen,
-          metalness: 0.2,
-          roughness: 0.8,
-          emissive: 0x002200,
+          color: 0x1a5c1a,
+          metalness: 0.1,
+          roughness: 0.9,
+          emissive: 0x0a3a0a,
           emissiveIntensity: 0.2,
         });
 
+        // Red ornament balls
         const redMat = new THREE.MeshPhysicalMaterial({
-          color: CONFIG.colors.accentRed,
-          metalness: 0.3,
-          roughness: 0.2,
+          color: 0xcc0000,
+          metalness: 0.5,
+          roughness: 0.1,
           clearcoat: 1.0,
-          emissive: 0x330000,
+          emissive: 0x660000,
+          emissiveIntensity: 0.3,
         });
 
+        // Gold ornament balls
+        const goldMat = new THREE.MeshStandardMaterial({
+          color: 0xffd700,
+          metalness: 1.0,
+          roughness: 0.1,
+          envMapIntensity: 2.0,
+          emissive: 0x886600,
+          emissiveIntensity: 0.4,
+        });
+
+        // Silver/White ornament balls
+        const silverMat = new THREE.MeshStandardMaterial({
+          color: 0xe8e8e8,
+          metalness: 1.0,
+          roughness: 0.1,
+          emissive: 0x666666,
+          emissiveIntensity: 0.2,
+        });
+
+        // Candy cane material
         const candyMat = new THREE.MeshStandardMaterial({
           map: caneTexture,
           roughness: 0.4,
+        });
+
+        // Gift box materials
+        const redGiftMat = new THREE.MeshStandardMaterial({
+          color: 0xdd0000,
+          roughness: 0.5,
+        });
+
+        const greenGiftMat = new THREE.MeshStandardMaterial({
+          color: 0x00aa00,
+          roughness: 0.5,
+        });
+
+        const blueGiftMat = new THREE.MeshStandardMaterial({
+          color: 0x0066cc,
+          roughness: 0.5,
+        });
+
+        // Star ornament material
+        const starOrnamentMat = new THREE.MeshStandardMaterial({
+          color: 0xffdd00,
+          metalness: 1.0,
+          roughness: 0.2,
+          emissive: 0xffaa00,
+          emissiveIntensity: 0.5,
+        });
+
+        // Bell material
+        const bellMat = new THREE.MeshStandardMaterial({
+          color: 0xffd700,
+          metalness: 1.0,
+          roughness: 0.3,
+        });
+
+        // Light bulb materials (colorful)
+        const redLightMat = new THREE.MeshStandardMaterial({
+          color: 0xff0000,
+          emissive: 0xff0000,
+          emissiveIntensity: 0.8,
+        });
+
+        const yellowLightMat = new THREE.MeshStandardMaterial({
+          color: 0xffff00,
+          emissive: 0xffff00,
+          emissiveIntensity: 0.8,
+        });
+
+        const blueLightMat = new THREE.MeshStandardMaterial({
+          color: 0x0088ff,
+          emissive: 0x0088ff,
+          emissiveIntensity: 0.8,
+        });
+
+        const greenLightMat = new THREE.MeshStandardMaterial({
+          color: 0x00ff00,
+          emissive: 0x00ff00,
+          emissiveIntensity: 0.8,
         });
 
         for (let i = 0; i < CONFIG.particles.count; i++) {
           const rand = Math.random();
           let mesh, type;
 
-          if (rand < 0.4) {
-            mesh = new THREE.Mesh(boxGeo, greenMat);
-            type = "BOX";
+          if (rand < 0.6) {
+            // 60% green foliage - diverse shapes
+            const foliageRand = Math.random();
+            if (foliageRand < 0.2) {
+              mesh = new THREE.Mesh(coneGeo, greenMat);
+              type = "FOLIAGE_CONE";
+            } else if (foliageRand < 0.35) {
+              mesh = new THREE.Mesh(tetraGeo, greenMat);
+              type = "FOLIAGE_TETRA";
+            } else if (foliageRand < 0.5) {
+              mesh = new THREE.Mesh(pyramidGeo, greenMat);
+              type = "FOLIAGE_PYRAMID";
+            } else if (foliageRand < 0.65) {
+              mesh = new THREE.Mesh(cylinderGeo, greenMat);
+              type = "FOLIAGE_CYLINDER";
+            } else if (foliageRand < 0.8) {
+              mesh = new THREE.Mesh(octaGeo, greenMat);
+              type = "FOLIAGE_OCTA";
+            } else if (foliageRand < 0.9) {
+              mesh = new THREE.Mesh(torusGeo, greenMat);
+              type = "FOLIAGE_TORUS";
+            } else {
+              mesh = new THREE.Mesh(sphereGeo, greenMat);
+              type = "FOLIAGE_SPHERE";
+            }
           } else if (rand < 0.7) {
-            mesh = new THREE.Mesh(boxGeo, goldMat);
-            type = "GOLD_BOX";
-          } else if (rand < 0.92) {
-            mesh = new THREE.Mesh(sphereGeo, goldMat);
-            type = "GOLD_SPHERE";
-          } else if (rand < 0.97) {
+            // 10% red ornament balls
             mesh = new THREE.Mesh(sphereGeo, redMat);
-            type = "RED";
-          } else {
+            type = "RED_BALL";
+          } else if (rand < 0.74) {
+            // 4% gold ornament balls
+            mesh = new THREE.Mesh(sphereGeo, goldMat);
+            type = "GOLD_BALL";
+          } else if (rand < 0.82) {
+            // 8% silver ornament balls
+            mesh = new THREE.Mesh(sphereGeo, silverMat);
+            type = "SILVER_BALL";
+          } else if (rand < 0.87) {
+            // 5% candy canes
             mesh = new THREE.Mesh(candyGeo, candyMat);
-            type = "CANE";
+            type = "CANDY_CANE";
+          } else if (rand < 0.91) {
+            // 4% gift boxes
+            const giftMats = [redGiftMat, greenGiftMat, blueGiftMat];
+            mesh = new THREE.Mesh(
+              giftGeo,
+              giftMats[Math.floor(Math.random() * 3)]
+            );
+            type = "GIFT";
+          } else if (rand < 0.94) {
+            // 3% star ornaments
+            mesh = new THREE.Mesh(starOrnamentGeo, starOrnamentMat);
+            type = "STAR_ORNAMENT";
+          } else if (rand < 0.96) {
+            // 2% bells
+            const bellGroup = new THREE.Group();
+            const body = new THREE.Mesh(bellBodyGeo, bellMat);
+            const top = new THREE.Mesh(bellTopGeo, bellMat);
+            top.position.y = 0.2;
+            bellGroup.add(body);
+            bellGroup.add(top);
+            mesh = bellGroup;
+            type = "BELL";
+          } else {
+            // 4% colorful lights
+            const lightMats = [
+              redLightMat,
+              yellowLightMat,
+              blueLightMat,
+              greenLightMat,
+            ];
+            mesh = new THREE.Mesh(
+              lightGeo,
+              lightMats[Math.floor(Math.random() * 4)]
+            );
+            type = "LIGHT";
           }
 
           const s = 0.4 + Math.random() * 0.5;
