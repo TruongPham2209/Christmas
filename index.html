@@ -1,285 +1,288 @@
-<!-- xin chào người lạ, mình là anhduc.onlien | mình có tìm được file code noel này và fix lại, mình xin phép share mọi người ạ! -->
 <!DOCTYPE html>
 <html lang="VN">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NOEL_V2</title>
+    <title>Christmas</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎅</text></svg>"
+    />
     <style>
-      body {
-        margin: 0;
-        overflow: hidden;
-        background: linear-gradient(
-          to bottom,
-          #0a1628 0%,
-          #1a2940 25%,
-          #0f1f38 50%,
-          #1a3050 75%,
-          #0d1b2a 100%
-        );
-        font-family: "Times New Roman", serif;
-        position: relative;
-      }
+        body {
+          margin: 0;
+          overflow: hidden;
+          background: linear-gradient(
+            to bottom,
+            #0a1628 0%,
+            #1a2940 25%,
+            #0f1f38 50%,
+            #1a3050 75%,
+            #0d1b2a 100%
+          );
+          font-family: "Times New Roman", serif;
+          position: relative;
+        }
 
-      /* Starry background effect */
-      body::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-image: radial-gradient(
-            2px 2px at 20% 30%,
-            white,
-            transparent
-          ),
-          radial-gradient(2px 2px at 60% 70%, white, transparent),
-          radial-gradient(1px 1px at 50% 50%, white, transparent),
-          radial-gradient(1px 1px at 80% 10%, white, transparent),
-          radial-gradient(2px 2px at 90% 60%, white, transparent),
-          radial-gradient(1px 1px at 33% 80%, white, transparent),
-          radial-gradient(1px 1px at 15% 60%, white, transparent);
-        background-size: 200% 200%;
-        animation: twinkle 4s ease-in-out infinite;
-        opacity: 0.5;
-        z-index: 0;
-      }
-
-      @keyframes twinkle {
-        0%,
-        100% {
+        /* Starry background effect */
+        body::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-image: radial-gradient(
+              2px 2px at 20% 30%,
+              white,
+              transparent
+            ),
+            radial-gradient(2px 2px at 60% 70%, white, transparent),
+            radial-gradient(1px 1px at 50% 50%, white, transparent),
+            radial-gradient(1px 1px at 80% 10%, white, transparent),
+            radial-gradient(2px 2px at 90% 60%, white, transparent),
+            radial-gradient(1px 1px at 33% 80%, white, transparent),
+            radial-gradient(1px 1px at 15% 60%, white, transparent);
+          background-size: 200% 200%;
+          animation: twinkle 4s ease-in-out infinite;
           opacity: 0.5;
+          z-index: 0;
         }
-        50% {
-          opacity: 0.8;
+
+        @keyframes twinkle {
+          0%,
+          100% {
+            opacity: 0.5;
+          }
+          50% {
+            opacity: 0.8;
+          }
         }
-      }
-      #canvas-container {
-        width: 100vw;
-        height: 100vh;
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: 1;
-      }
-
-      /* UI Overlay - Minimalist */
-      #ui-layer {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 10;
-        pointer-events: none;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding-top: 40px;
-        box-sizing: border-box;
-        /* Remove transition here as we don't hide the whole layer anymore */
-      }
-
-      /* When hidden class is applied to specific elements */
-      .ui-hidden {
-        opacity: 0;
-        pointer-events: none !important;
-      }
-
-      /* Loading */
-      #loader {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: #000;
-        z-index: 100;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        transition: opacity 0.8s ease-out;
-      }
-      .loader-text {
-        color: #d4af37;
-        font-size: 14px;
-        letter-spacing: 4px;
-        margin-top: 20px;
-        text-transform: uppercase;
-        font-weight: 100;
-      }
-      .spinner {
-        width: 40px;
-        height: 40px;
-        border: 1px solid rgba(212, 175, 55, 0.2);
-        border-top: 1px solid #d4af37;
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
-      }
-      @keyframes spin {
-        0% {
-          transform: rotate(0deg);
+        #canvas-container {
+          width: 100vw;
+          height: 100vh;
+          position: absolute;
+          top: 0;
+          left: 0;
+          z-index: 1;
         }
-        100% {
-          transform: rotate(360deg);
+
+        /* UI Overlay - Minimalist */
+        #ui-layer {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          z-index: 10;
+          pointer-events: none;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          padding-top: 40px;
+          box-sizing: border-box;
+          /* Remove transition here as we don't hide the whole layer anymore */
         }
-      }
 
-      /* Typography - Centerpiece */
-      h1 {
-        color: #fceea7;
-        font-size: 56px;
-        margin: 0;
-        font-weight: 400;
-        letter-spacing: 6px;
-        text-shadow: 0 0 50px rgba(252, 238, 167, 0.6);
-        background: linear-gradient(to bottom, #fff, #eebb66);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        font-family: "Cinzel", "Times New Roman", serif;
-        opacity: 0.9;
-        transition: opacity 0.5s ease; /* Ensure smooth transitions if needed */
-      }
+        /* When hidden class is applied to specific elements */
+        .ui-hidden {
+          opacity: 0;
+          pointer-events: none !important;
+        }
 
-      /* Webcam feedback */
-      #webcam-wrapper {
-        position: absolute;
-        bottom: 40px;
-        right: 40px;
-        width: 120px;
-        height: 90px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        overflow: hidden;
-        opacity: 0; /* Hidden by default but functional */
-        pointer-events: none;
-      }
+        /* Loading */
+        #loader {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: #000;
+          z-index: 100;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          transition: opacity 0.8s ease-out;
+        }
+        .loader-text {
+          color: #d4af37;
+          font-size: 14px;
+          letter-spacing: 4px;
+          margin-top: 20px;
+          text-transform: uppercase;
+          font-weight: 100;
+        }
+        .spinner {
+          width: 40px;
+          height: 40px;
+          border: 1px solid rgba(212, 175, 55, 0.2);
+          border-top: 1px solid #d4af37;
+          border-radius: 50%;
+          animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+          0% {
+            transform: rotate(0deg);
+          }
+          100% {
+            transform: rotate(360deg);
+          }
+        }
 
-      /* Christmas Message */
-      .christmas-message {
-        position: absolute;
-        bottom: 50px;
-        left: 50%;
-        transform: translateX(-50%);
-        color: #fff;
-        font-size: 32px;
-        font-weight: 700;
-        text-align: center;
-        text-shadow: 0 0 20px rgba(255, 255, 255, 0.8),
-          0 0 40px rgba(255, 215, 0, 0.6), 0 0 60px rgba(255, 0, 0, 0.4);
-        font-family: "Cinzel", "Times New Roman", serif;
-        letter-spacing: 3px;
-        animation: glow 2s ease-in-out infinite alternate;
-        z-index: 15;
-        pointer-events: none;
-      }
+        /* Typography - Centerpiece */
+        h1 {
+          color: #fceea7;
+          font-size: 56px;
+          margin: 0;
+          font-weight: 400;
+          letter-spacing: 6px;
+          text-shadow: 0 0 50px rgba(252, 238, 167, 0.6);
+          background: linear-gradient(to bottom, #fff, #eebb66);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          font-family: "Cinzel", "Times New Roman", serif;
+          opacity: 0.9;
+          transition: opacity 0.5s ease; /* Ensure smooth transitions if needed */
+        }
 
-      @keyframes glow {
-        from {
+        /* Webcam feedback */
+        #webcam-wrapper {
+          position: absolute;
+          bottom: 40px;
+          right: 40px;
+          width: 120px;
+          height: 90px;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          overflow: hidden;
+          opacity: 0; /* Hidden by default but functional */
+          pointer-events: none;
+        }
+
+        /* Christmas Message */
+        .christmas-message {
+          position: absolute;
+          bottom: 50px;
+          left: 50%;
+          transform: translateX(-50%);
+          color: #fff;
+          font-size: 32px;
+          font-weight: 700;
+          text-align: center;
           text-shadow: 0 0 20px rgba(255, 255, 255, 0.8),
             0 0 40px rgba(255, 215, 0, 0.6), 0 0 60px rgba(255, 0, 0, 0.4);
+          font-family: "Cinzel", "Times New Roman", serif;
+          letter-spacing: 3px;
+          animation: glow 2s ease-in-out infinite alternate;
+          z-index: 15;
+          pointer-events: none;
         }
-        to {
-          text-shadow: 0 0 30px rgba(255, 255, 255, 1),
-            0 0 60px rgba(255, 215, 0, 0.8), 0 0 90px rgba(255, 0, 0, 0.6);
+
+        @keyframes glow {
+          from {
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8),
+              0 0 40px rgba(255, 215, 0, 0.6), 0 0 60px rgba(255, 0, 0, 0.4);
+          }
+          to {
+            text-shadow: 0 0 30px rgba(255, 255, 255, 1),
+              0 0 60px rgba(255, 215, 0, 0.8), 0 0 90px rgba(255, 0, 0, 0.6);
+          }
         }
-      }
 
-      /* Snowflakes */
-      .snowflake {
-        position: absolute;
-        top: -10px;
-        z-index: 9;
-        color: #fff;
-        font-size: 1em;
-        pointer-events: none;
-        animation: fall linear infinite;
-        text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
-      }
-
-      @keyframes fall {
-        to {
-          transform: translateY(100vh) rotate(360deg);
+        /* Snowflakes */
+        .snowflake {
+          position: absolute;
+          top: -10px;
+          z-index: 9;
+          color: #fff;
+          font-size: 1em;
+          pointer-events: none;
+          animation: fall linear infinite;
+          text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
         }
-      }
 
-      /* Fireworks */
-      .firework {
-        position: absolute;
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        pointer-events: none;
-        z-index: 8;
-      }
-
-      @keyframes firework-launch {
-        0% {
-          transform: translateY(0);
-          opacity: 1;
+        @keyframes fall {
+          to {
+            transform: translateY(100vh) rotate(360deg);
+          }
         }
-        100% {
-          transform: translateY(-200px);
-          opacity: 0;
+
+        /* Fireworks */
+        .firework {
+          position: absolute;
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          pointer-events: none;
+          z-index: 8;
         }
-      }
 
-      @keyframes firework-explode {
-        0% {
-          transform: translate(0, 0) scale(1);
-          opacity: 1;
+        @keyframes firework-launch {
+          0% {
+            transform: translateY(0);
+            opacity: 1;
+          }
+          100% {
+            transform: translateY(-200px);
+            opacity: 0;
+          }
         }
-        100% {
-          transform: translate(var(--x), var(--y)) scale(0);
-          opacity: 0;
+
+        @keyframes firework-explode {
+          0% {
+            transform: translate(0, 0) scale(1);
+            opacity: 1;
+          }
+          100% {
+            transform: translate(var(--x), var(--y)) scale(0);
+            opacity: 0;
+          }
         }
-      }
 
-      /* Greeting Message */
-      .greeting-text {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-family: "Great Vibes", "Dancing Script", cursive;
-        font-size: 72px;
-        color: #fff;
-        text-align: center;
-        text-shadow: 0 0 30px rgba(255, 215, 0, 0.8),
-          0 0 60px rgba(255, 100, 100, 0.6), 0 5px 20px rgba(0, 0, 0, 0.5);
-        z-index: 20;
-        pointer-events: none;
-        animation: greeting-pulse 3s ease-in-out infinite;
-        line-height: 1.4;
-      }
-
-      .greeting-text .small {
-        font-size: 42px;
-        display: block;
-        margin-top: 10px;
-        font-family: "Playfair Display", serif;
-        letter-spacing: 4px;
-      }
-
-      @keyframes greeting-pulse {
-        0%,
-        100% {
-          transform: translate(-50%, -50%) scale(1);
+        /* Greeting Message */
+        .greeting-text {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          font-family: "Great Vibes", "Dancing Script", cursive;
+          font-size: 72px;
+          color: #fff;
+          text-align: center;
           text-shadow: 0 0 30px rgba(255, 215, 0, 0.8),
             0 0 60px rgba(255, 100, 100, 0.6), 0 5px 20px rgba(0, 0, 0, 0.5);
+          z-index: 20;
+          pointer-events: none;
+          animation: greeting-pulse 3s ease-in-out infinite;
+          line-height: 1.4;
         }
-        50% {
-          transform: translate(-50%, -50%) scale(1.05);
-          text-shadow: 0 0 40px rgba(255, 215, 0, 1),
-            0 0 80px rgba(255, 100, 100, 0.8), 0 5px 30px rgba(0, 0, 0, 0.6);
-        }
-      }
-    </style>
 
-    <style>
-      @import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap");
-      @import url("https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@700&family=Dancing+Script:wght@700&display=swap");
+        .greeting-text .small {
+          font-size: 42px;
+          display: block;
+          margin-top: 10px;
+          font-family: "Playfair Display", serif;
+          letter-spacing: 4px;
+        }
+
+        @keyframes greeting-pulse {
+          0%,
+          100% {
+            transform: translate(-50%, -50%) scale(1);
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.8),
+              0 0 60px rgba(255, 100, 100, 0.6), 0 5px 20px rgba(0, 0, 0, 0.5);
+          }
+          50% {
+            transform: translate(-50%, -50%) scale(1.05);
+            text-shadow: 0 0 40px rgba(255, 215, 0, 1),
+              0 0 80px rgba(255, 100, 100, 0.8), 0 5px 30px rgba(0, 0, 0, 0.6);
+          }
+        }
+      </link>
+
+      <style>
+        @import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap");
+        @import url("https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@700&family=Dancing+Script:wght@700&display=swap");
     </style>
 
     <script type="importmap">
